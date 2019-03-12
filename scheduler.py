@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# Written by jmaul
+# Written by joshthehero91
 import sys
 admins = {}
 #
