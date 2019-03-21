@@ -1,7 +1,18 @@
 #!/usr/bin/python3
 # Written by joshthehero91
+import os
 import sys
+import json
+
 admins = {}
+
+if os.path.isfile('admins.json') == True:
+    with open('admins.json', 'r') as f:
+        admins = json.load(f)
+
+def saveList():
+    with open('admins.json', 'w') as f:
+        json.dump(admins, f, sort_keys=True, indent=4)
 
 def mainMenu():
     choice = input("""
@@ -66,6 +77,7 @@ Please provide the admins schedule: """)
 Please provide the admins roles: """)
      
     admins[adminName] = {'shift' : adminSchedule, 'roles': adminRoles}
+    saveList()
     mainMenu()
 
 def deleteAdmin():
@@ -81,6 +93,7 @@ def deleteAdmin():
         if confirm == 'Y':
             print('Removing ' + adminName + ' from scheduler...')
             admins.pop(adminName)
+            saveList()
             mainMenu()
         elif confirm == 'y':
             print('Please confirm by using \'Y\'.')
@@ -92,6 +105,9 @@ def deleteAdmin():
             mainMenu()
 
 def listAdmin():
+    if os.path.isfile('admins.json') == True:
+        with open('admins.json', 'r') as f:
+            admins = json.load(f)
     print('')
     print('{:<8} {:<15} {:<10}'.format('Name','Shift','Roles'))
     for k, v in admins.items():
