@@ -1,19 +1,26 @@
 #!/usr/bin/python3
 # Written by joshthehero91
+#
+# Importing modules
 import os
 import sys
 import json
-
+#
+# Creating empty dictionary
 admins = {}
-
+#
+# Confirming the existence of 'admins.json' which stores the admin data
+#  for persistent list
 if os.path.isfile('admins.json') == True:
     with open('admins.json', 'r') as f:
         admins = json.load(f)
-
+#
+# Function to save the list to 'admins.json'
 def saveList():
     with open('admins.json', 'w') as f:
         json.dump(admins, f, sort_keys=True, indent=4)
-
+#
+# Main menu and display:
 def mainMenu():
     choice = input("""
            ___________________________________________________________
@@ -45,7 +52,8 @@ def mainMenu():
     else:
         print('The option selected is not avaible. Please try again.')
         mainMenu()
-
+#
+# Function to add new admins to scheduler
 def addAdmin():
     print('')
     adminName = input('Please provide the name of the admin being added: ')
@@ -75,11 +83,13 @@ Please provide the admins schedule: """)
                                 For example, andmin who should be on Shadow, Chatter, and New would be represtend by 'scn'. 
 
 Please provide the admins roles: """)
-     
+    #
+    # Adds the new user to the 'admins' dictionary
     admins[adminName] = {'shift' : adminSchedule, 'roles': adminRoles}
     saveList()
     mainMenu()
-
+#
+# Function to remove admin from scheduler with value checkers
 def deleteAdmin():
     print('')
     adminName = input('Please provide the name of the admin being removed or \'back\' to return to the main menu: ')
@@ -103,7 +113,61 @@ def deleteAdmin():
         else:
             print('Not a valid choice. Please try again')
             mainMenu()
+#
+# Function to modify existing admins with value checking
+def modifyAdmin():
+    adminName = input('Please provide the name of the admin being modifies or \'back\' to return to the main menu: ')
+    if adminName == 'back':
+        mainMenu()
+    elif adminName not in admins:
+        print('Admin is not listed as an avaible admin. Please try again.')
+        mainMenu()
+    else:
+        confirm = input('Are you sure you would like to modify ' + adminName + ' shift and roles? (Y/n): ')
+        if confirm == 'Y':
+            adminSchedule = input("""
+                                """ + adminName + """ will need to have their schedule updated.
+                               The days are represented as the following:
 
+                                 
+                                ___________________________________________
+                                | Sun | Mon | Tue | Wed | Thu | Fri | Sat |
+                                |-----|-----|-----|-----|-----|-----|-----|
+                                | '1' | '2' | '3' | '4' | '5' | '6' | '7' |
+                                |_____|_____|_____|_____|_____|_____|_____| 
+ 
+                                For example, Mon-Fri would be represtend by '23456'. 
+
+Please provide the admins schedule: """)
+            adminRoles = input("""
+                                """ + adminName + """ will now need their roles defined.
+                                The roles are represented as the following:
+
+                                _______________________________________________
+                                | New | Ongoing | Handoffs | Chatter | Shadow |
+                                |-----|---------|----------|---------|--------|
+                                | 'n' |   'o'   |   'h'    |   'c'   |   's'  |
+                                |_____|_________|__________|_________|________| 
+
+                                For example, andmin who should be on Shadow, Chatter, and New would be represtend by 'scn'. 
+
+Please provide the admins roles: """)
+            #
+            # Updates the 'admins' dictinoary with new values
+            admins[adminName] = {'shift' : adminSchedule, 'roles': adminRoles}
+            print('Updating ' + str(adminName) + '\'s schedule to ' + str(adminSchedule) + ' and roles to ' + str(adminRoles) + '...')
+            saveList()
+            mainMenu()
+        elif confirm == 'y':
+            print('Please confirm by using \'Y\'.')
+            modifyAdmin()
+        elif confirm == 'N' or 'n':
+            mainMenu()
+        else:
+            print('Not a valid choice. Please try again')
+            mainMenu()
+#
+# Function to display all admins in scheduler
 def listAdmin():
     if os.path.isfile('admins.json') == True:
         with open('admins.json', 'r') as f:
@@ -116,5 +180,6 @@ def listAdmin():
         print('{:<8} {:<15} {:<10}'.format(k, shift, roles))
     print('')
     mainMenu()
-
+#
+# Magic!
 mainMenu()
