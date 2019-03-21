@@ -2,22 +2,7 @@
 # Written by joshthehero91
 import sys
 admins = {}
-#
-#class Admin:
-#    def __inti__(self, adminName, adminSchedule, adminRoles):
-#        self.adminName = adminName
-#        self.adminSchedule = adminSchedule
-#        self.adminRoles = adminRoles
-#
-#    def adminName(self):
-#        return self.adminName
-#
-#    def adminSchedule(self):
-#        return self.adminSchedule
-#
-#    def adminRoles(self):
-#        return self.adminSchedule
-#
+
 def mainMenu():
     choice = input("""
            ___________________________________________________________
@@ -52,7 +37,7 @@ def mainMenu():
 
 def addAdmin():
     print('')
-    adminName = input('Please provide that name of the admin being added: ')
+    adminName = input('Please provide the name of the admin being added: ')
     adminSchedule = input("""
                                 """ + adminName + """ will need to have their schedule updated.
                                 The days are represented as the following:
@@ -82,6 +67,29 @@ Please provide the admins roles: """)
      
     admins[adminName] = {'shift' : adminSchedule, 'roles': adminRoles}
     mainMenu()
+
+def deleteAdmin():
+    print('')
+    adminName = input('Please provide the name of the admin being removed or \'back\' to return to the main menu: ')
+    if adminName == 'back':
+        mainMenu()
+    elif adminName not in admins:
+        print('Admin is not listed as an avaible admin. Please try again.')
+        mainMenu()
+    else:
+        confirm = input('Are you sure you would like to remove ' + adminName + ' from the scheduler? (Y/n): ')
+        if confirm == 'Y':
+            print('Removing ' + adminName + ' from scheduler...')
+            admins.pop(adminName)
+            mainMenu()
+        elif confirm == 'y':
+            print('Please confirm by using \'Y\'.')
+            deleteAdmin()
+        elif confirm == 'N' or 'n':
+            mainMenu()
+        else:
+            print('Not a valid choice. Please try again')
+            mainMenu()
 
 def listAdmin():
     print('')
