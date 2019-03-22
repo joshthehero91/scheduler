@@ -1,25 +1,55 @@
 #!/usr/bin/python3
 # Written by joshthehero91
-#
-# Importing modules
+
+# Importing modules:
 import os
 import sys
 import json
-#
-# Creating empty dictionary
+
+# Creating empty dictionary:
 admins = {}
-#
-# Confirming the existence of 'admins.json' which stores the admin data
-#  for persistent list
-if os.path.isfile('admins.json') == True:
-    with open('admins.json', 'r') as f:
-        admins = json.load(f)
-#
-# Function to save the list to 'admins.json'
+
+# Function to onfirming the existence of 'admins.json' which stores the admin 
+# data for persistent list:
+def readList():
+    if os.path.isfile('admins.json') == True:
+        with open('admins.json', 'r') as f:
+            admins = json.load(f)
+            return admins
+
+# Function to save the list to 'admins.json':
 def saveList():
     with open('admins.json', 'w') as f:
         json.dump(admins, f, sort_keys=True, indent=4)
-#
+
+# Function to get admin schedule:
+def getSchedule(adminName):
+    adminSchedule = input("""
+                                """ + adminName + """ will need to have their schedule updated.
+                                The days are represented as the following:
+                                ___________________________________________
+                                | Sun | Mon | Tue | Wed | Thu | Fri | Sat |
+                                |-----|-----|-----|-----|-----|-----|-----|
+                                | '1' | '2' | '3' | '4' | '5' | '6' | '7' |
+                                |_____|_____|_____|_____|_____|_____|_____|
+                                For example, Mon-Fri would be represtend by '23456'.
+Please provide the admins schedule: """)
+    return adminSchedule
+
+# Function to get admin roles:
+def getRoles(adminName):
+    adminRoles = input("""
+                                """ + adminName + """ will now need their roles defined.
+                                The roles are represented as the following:
+                                _______________________________________________
+                                | New | Ongoing | Handoffs | Chatter | Shadow |
+                                |-----|---------|----------|---------|--------|
+                                | 'n' |   'o'   |   'h'    |   'c'   |   's'  |
+                                |_____|_________|__________|_________|________|
+                                For example, andmin who should be on Shadow, Chatter, and New would be represtend by 'scn'.
+Please provide the admins roles: """)
+    return adminRoles
+
 # Main menu and display:
 def mainMenu():
     choice = input("""
@@ -52,44 +82,20 @@ def mainMenu():
     else:
         print('The option selected is not avaible. Please try again.')
         mainMenu()
-#
-# Function to add new admins to scheduler
+
+# Function to add new admins to scheduler:
 def addAdmin():
     print('')
     adminName = input('Please provide the name of the admin being added: ')
-    adminSchedule = input("""
-                                """ + adminName + """ will need to have their schedule updated.
-                                The days are represented as the following:
-
-                                ___________________________________________
-                                | Sun | Mon | Tue | Wed | Thu | Fri | Sat |
-                                |-----|-----|-----|-----|-----|-----|-----|
-                                | '1' | '2' | '3' | '4' | '5' | '6' | '7' |
-                                |_____|_____|_____|_____|_____|_____|_____| 
-
-                                For example, Mon-Fri would be represtend by '23456'. 
-
-Please provide the admins schedule: """)
-    adminRoles = input("""
-                                """ + adminName + """ will now need their roles defined.
-                                The roles are represented as the following:
-
-                                _______________________________________________
-                                | New | Ongoing | Handoffs | Chatter | Shadow |
-                                |-----|---------|----------|---------|--------|
-                                | 'n' |   'o'   |   'h'    |   'c'   |   's'  |
-                                |_____|_________|__________|_________|________| 
-
-                                For example, andmin who should be on Shadow, Chatter, and New would be represtend by 'scn'. 
-
-Please provide the admins roles: """)
-    #
+    adminSchedule = getSchedule(adminName)
+    adminRoles = getRoles(adminName)
+    
     # Adds the new user to the 'admins' dictionary
     admins[adminName] = {'shift' : adminSchedule, 'roles': adminRoles}
     saveList()
     mainMenu()
-#
-# Function to remove admin from scheduler with value checkers
+
+# Function to remove admin from scheduler with validation:
 def deleteAdmin():
     print('')
     adminName = input('Please provide the name of the admin being removed or \'back\' to return to the main menu: ')
@@ -113,8 +119,8 @@ def deleteAdmin():
         else:
             print('Not a valid choice. Please try again')
             mainMenu()
-#
-# Function to modify existing admins with value checking
+
+# Function to modify existing admins with validation:
 def modifyAdmin():
     adminName = input('Please provide the name of the admin being modifies or \'back\' to return to the main menu: ')
     if adminName == 'back':
@@ -125,34 +131,9 @@ def modifyAdmin():
     else:
         confirm = input('Are you sure you would like to modify ' + adminName + ' shift and roles? (Y/n): ')
         if confirm == 'Y':
-            adminSchedule = input("""
-                                """ + adminName + """ will need to have their schedule updated.
-                               The days are represented as the following:
-
-                                 
-                                ___________________________________________
-                                | Sun | Mon | Tue | Wed | Thu | Fri | Sat |
-                                |-----|-----|-----|-----|-----|-----|-----|
-                                | '1' | '2' | '3' | '4' | '5' | '6' | '7' |
-                                |_____|_____|_____|_____|_____|_____|_____| 
- 
-                                For example, Mon-Fri would be represtend by '23456'. 
-
-Please provide the admins schedule: """)
-            adminRoles = input("""
-                                """ + adminName + """ will now need their roles defined.
-                                The roles are represented as the following:
-
-                                _______________________________________________
-                                | New | Ongoing | Handoffs | Chatter | Shadow |
-                                |-----|---------|----------|---------|--------|
-                                | 'n' |   'o'   |   'h'    |   'c'   |   's'  |
-                                |_____|_________|__________|_________|________| 
-
-                                For example, andmin who should be on Shadow, Chatter, and New would be represtend by 'scn'. 
-
-Please provide the admins roles: """)
-            #
+            adminSchedule = getSchedule(adminName)
+            adminRoles = getRoles(adminName)
+            
             # Updates the 'admins' dictinoary with new values
             admins[adminName] = {'shift' : adminSchedule, 'roles': adminRoles}
             print('Updating ' + str(adminName) + '\'s schedule to ' + str(adminSchedule) + ' and roles to ' + str(adminRoles) + '...')
@@ -166,20 +147,23 @@ Please provide the admins roles: """)
         else:
             print('Not a valid choice. Please try again')
             mainMenu()
-#
-# Function to display all admins in scheduler
+
+# Function to display all admins in scheduler in a table format:
 def listAdmin():
-    if os.path.isfile('admins.json') == True:
-        with open('admins.json', 'r') as f:
-            admins = json.load(f)
+
+    # Rereading the file for data validation:
+    admins = readList()
     print('')
-    print('{:<8} {:<15} {:<10}'.format('Name','Shift','Roles'))
+    line ='{:<16} {:<30} {:<20}'.format('Name','Shift','Roles')
+    print(line)
+    print('_' * len(line))
     for k, v in admins.items():
         shift = v['shift']
         roles = v['roles']
-        print('{:<8} {:<15} {:<10}'.format(k, shift, roles))
+        print('{:<16} {:<30} {:<20}'.format(k, shift, roles))
     print('')
     mainMenu()
-#
-# Magic!
+
+# The magic!
+admins = readList()
 mainMenu()
