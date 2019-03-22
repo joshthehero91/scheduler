@@ -1,0 +1,23 @@
+for i in range(0, len(admins)):
+    for k, v in admins.items():
+        adminName = k
+        shift = v['shift']
+        roles = v['roles']
+
+for k, v in admins.items():
+    adminName = k
+    shift = v['shift']
+    roles = v['roles']
+    if '1' in shift:
+        print(adminName + ' can work on Sun.')
+        print(roles)
+
+for i in range(0, len(admins)):
+    adminList = list(admins.items())
+    print('Im i: ' + str(i))
+    if '1' in adminList[i][1]['shift']:
+        print(adminName + ' should work sun.')
+        print('and have these roles:')
+        print(adminName[i][1]['roles'])
+    else: 
+        print('busetd')
