@@ -1,0 +1,34 @@
+{
+    "eanderson": {
+        "roles": "nohcs",
+        "shift": "23456"
+    },
+    "jchunko": {
+        "roles": "noh",
+        "shift": "23456"
+    },
+    "jmaul": {
+        "roles": "nohcs",
+        "shift": "3456"
+    },
+    "jt": {
+        "roles": "noh",
+        "shift": "3456"
+    },
+    "mrathbun": {
+        "roles": "S",
+        "shift": "23456"
+    },
+    "ndilernia": {
+        "roles": "L4",
+        "shift": "2345"
+    },
+    "rsmith": {
+        "roles": "nohcs",
+        "shift": "3456"
+    },
+    "wbrown": {
+        "roles": "nohcs",
+        "shift": "4567"
+    }
+}
