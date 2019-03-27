@@ -17,93 +17,78 @@ week = {
         'fri': {},
         'sat': {},
        }
-
+data = []
 
 # Function to onfirming the existence of 'admins.json' which stores the admin
 # data for persistent list:
-def readList():
-    if os.path.isfile('admins.json') == True:
-        with open('admins.json', 'r') as f:
-            admins = json.load(f)
-            return admins
+def readList(file):
+    if os.path.isfile(file) == True:
+        with open(file, 'r') as f:
+            data = json.load(f)
+            return data
 
 # Function to save the list to 'admins.json':
-def saveList():
-    with open('admins.json', 'w') as f:
-        json.dump(admins, f, sort_keys=True, indent=4)
+def saveList(file, data):
+    with open(file, 'w') as f:
+        json.dump(data, f, sort_keys=True, indent=4)
 
-# Function to display all admins in scheduler in a table format:
-def listAdmin():
-
-    # Rereading the file for data validation:
-    admins = readList()
-    print('')
-    line ='{:<16} {:<30} {:<20}'.format('Name','Shift','Roles')
-    print(line)
-    print('_' * len(line))
-    for k, v in admins.items():
-        shift = v['shift']
-        roles = v['roles']
-        print('{:<16} {:<30} {:<20}'.format(k, shift, roles))
-    print('')
-
-# The magic!
-admins = readList()
-listAdmin()
-
+# Created lists for each role within each day:
 def addKeys():
     for days in week.keys():
-        keys = {'new' : set([]), 'ongo' : set([]), 'hand' : set([]), 'chat' : set([]) , 'shad' : set([])}
+        keys = {'new' : [], 'ongo' : [], 'hand' : [], 'chat' : [] , 'shad' : []}
         week[days]=keys
 
+# Function to check the roles called by 'sortAdmin()': 
+def roleCheck(roles, adminName, weekday):
+    for i in roles:
+        if i == 'n':
+            if adminName not in weekday['new']:
+                weekday['new'].append(adminName)
+        if i == 'o':
+            if adminName not in weekday['ongo']:
+                weekday['ongo'].append(adminName)
+        if i == 'h':
+            if adminName not in weekday['hand']:
+                weekday['hand'].append(adminName)
+        if i == 'c':
+            if adminName not in weekday['chat']:
+                weekday['chat'].append(adminName)
+        if i == 's':
+            if adminName not in weekday['shad']:
+                weekday['shad'].append(adminName)
+
+# Function to sort admins into pools based on days and roles:
+def sortAdmins():
+    for adminName, v in admins.items():
+        shift = v['shift']
+        roles = v['roles']
+        for s in shift:
+            if s == '1':
+                weekday = week['sun']
+                roleCheck(roles, adminName, weekday)
+            if s == '2':
+                weekday = week['mon']
+                roleCheck(roles, adminName, weekday)
+            if s == '3':
+                weekday = week['tue']
+                roleCheck(roles, adminName, weekday)
+            if s == '4':
+                weekday = week['wed']
+                roleCheck(roles, adminName, weekday)
+            if s == '5':
+                weekday = week['thu']
+                roleCheck(roles, adminName, weekday)
+            if s == '6':
+                weekday = week['fri']
+                roleCheck(roles, adminName, weekday)
+            if s == '7':
+                weekday = week['sat']
+                roleCheck(roles, adminName, weekday)
+
+admins = readList('admins.json')
 addKeys()
-setRoles = ['n', 'o', 'h', 'c', 's']
-setShift = ['1', '2', '3', '4', '5', '6', '7']
-
-#for days in week.keys():
-#    keys = {'new' : set([]), 'ongo' : set([]), 'hand' : set([]), 'chat' : set([]) , 'shad' : set([])}
-#    week[days]=keys
-
-def addList(adminName, days, key):
-    weekdays = week[days][key]
-    add =  weekdays.add(adminName)
-    if 'n' in roles:
-        add
-    if 'o' in roles:
-        add
-    if 'h' in roles:
-        add
-    if 'c' in roles:
-        add
-    if 's' in roles:
-        add
-
-def setShift(shift, roles, adminName):
-    for days, v in week.items():
-        for key, v in week[days].items():
-            weekdays = week[days][key]
-            addAdmin = addList(adminName, days, key)
-            if '1' in shift:
-                addAdmin
-            if '2' in shift:
-                addAdmin
-            if '3' in shift:
-                addAdmin
-            if '4' in shift:
-                addAdmin
-            if '5' in shift:
-                addAdmin
-            if '6' in shift:
-                addAdmin
-            if '7' in shift:
-                addAdmin
-
-for k, v in admins.items():
-    adminName = k
-    shift = v['shift']
-    roles = v['roles']
-    setShift(shift, roles, adminName)
-
+sortAdmins()
+saveList('weekPool.json', week)
 
 print('')
 print('----------------------')
