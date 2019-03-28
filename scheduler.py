@@ -1,26 +1,42 @@
 #!/usr/bin/python3
-# Written by joshthehero91
+# Written by joshthehero91 and wgoff
 
 # Importing modules:
 import os
 import sys
 import json
+from run import *
 
-# Creating empty dictionary:
+# Creating empty dictionaryand lists:
 admins = {}
+week = {
+        'sun': {},
+        'mon': {},
+        'tue': {},
+        'wed': {},
+        'thu': {},
+        'fri': {},
+        'sat': {},
+       }
+data = []
 
-# Function to onfirming the existence of 'admins.json' which stores the admin 
-# data for persistent list:
-def readList():
-    if os.path.isfile('admins.json') == True:
-        with open('admins.json', 'r') as f:
-            admins = json.load(f)
-            return admins
+# Created lists for each role within each day:
+def addKeys():
+    for days in week.keys():
+        keys = {'new' : [], 'ongo' : [], 'hand' : [], 'chat' : [] , 'shad' : []}
+        week[days]=keys
 
-# Function to save the list to 'admins.json':
-def saveList():
-    with open('admins.json', 'w') as f:
-        json.dump(admins, f, sort_keys=True, indent=4)
+# Function to onfirming the existence of a json file then reads it: 
+def readList(file):
+    if os.path.isfile(file) == True:
+        with open(file, 'r') as f:
+            data = json.load(f)
+            return data
+
+# Function to save data json file for persistence:
+def saveList(file, data):
+    with open(file, 'w') as f:
+        json.dump(data, f, sort_keys=True, indent=4)
 
 # Function to get admin schedule:
 def getSchedule(adminName):
@@ -92,7 +108,7 @@ def addAdmin():
     
     # Adds the new user to the 'admins' dictionary
     admins[adminName] = {'shift' : adminSchedule, 'roles': adminRoles}
-    saveList()
+    saveList('admins.json', admins)
     mainMenu()
 
 # Function to remove admin from scheduler with validation:
@@ -109,7 +125,7 @@ def deleteAdmin():
         if confirm == 'Y':
             print('Removing ' + adminName + ' from scheduler...')
             admins.pop(adminName)
-            saveList()
+            saveList('admins.json', admins)
             mainMenu()
         elif confirm == 'y':
             print('Please confirm by using \'Y\'.')
@@ -137,7 +153,7 @@ def modifyAdmin():
             # Updates the 'admins' dictinoary with new values
             admins[adminName] = {'shift' : adminSchedule, 'roles': adminRoles}
             print('Updating ' + str(adminName) + '\'s schedule to ' + str(adminSchedule) + ' and roles to ' + str(adminRoles) + '...')
-            saveList()
+            saveList('admins.json', admins)
             mainMenu()
         elif confirm == 'y':
             print('Please confirm by using \'Y\'.')
@@ -152,7 +168,7 @@ def modifyAdmin():
 def listAdmin():
 
     # Rereading the file for data validation:
-    admins = readList()
+    admins = readList('admins.json')
     print('')
     line ='{:<16} {:<30} {:<20}'.format('Name','Shift','Roles')
     print(line)
@@ -164,6 +180,13 @@ def listAdmin():
     print('')
     mainMenu()
 
+# function to sort and run the scheduler:
+def runScheduler():
+        addKeys()
+        print('Running scheduler...')
+        sortAdmins(admins, week)
+        saveList('weekPool.json', week)
+
 # The magic!
-admins = readList()
+admins = readList('admins.json')
 mainMenu()
