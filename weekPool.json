@@ -1,0 +1,209 @@
+{
+    "fri": {
+        "chat": [
+            "eanderson",
+            "jmaul",
+            "rsmith",
+            "wbrown"
+        ],
+        "hand": [
+            "eanderson",
+            "jchunko",
+            "jmaul",
+            "jt",
+            "rsmith",
+            "wbrown"
+        ],
+        "new": [
+            "eanderson",
+            "jchunko",
+            "jmaul",
+            "jt",
+            "rsmith",
+            "wbrown"
+        ],
+        "ongo": [
+            "eanderson",
+            "jchunko",
+            "jmaul",
+            "jt",
+            "rsmith",
+            "wbrown"
+        ],
+        "shad": [
+            "eanderson",
+            "jmaul",
+            "rsmith",
+            "wbrown"
+        ]
+    },
+    "mon": {
+        "chat": [
+            "eanderson"
+        ],
+        "hand": [
+            "ckelley",
+            "eanderson",
+            "jchunko"
+        ],
+        "new": [
+            "ckelley",
+            "eanderson",
+            "jchunko",
+            "kthelen"
+        ],
+        "ongo": [
+            "ckelley",
+            "eanderson",
+            "jchunko"
+        ],
+        "shad": [
+            "eanderson"
+        ]
+    },
+    "sat": {
+        "chat": [
+            "wbrown"
+        ],
+        "hand": [
+            "wbrown"
+        ],
+        "new": [
+            "wbrown"
+        ],
+        "ongo": [
+            "wbrown"
+        ],
+        "shad": [
+            "wbrown"
+        ]
+    },
+    "sun": {
+        "chat": [],
+        "hand": [],
+        "new": [],
+        "ongo": [],
+        "shad": []
+    },
+    "thu": {
+        "chat": [
+            "eanderson",
+            "jmaul",
+            "rsmith",
+            "wbrown"
+        ],
+        "hand": [
+            "ckelley",
+            "eanderson",
+            "jchunko",
+            "jmaul",
+            "jt",
+            "rsmith",
+            "wbrown"
+        ],
+        "new": [
+            "ckelley",
+            "eanderson",
+            "jchunko",
+            "jmaul",
+            "jt",
+            "rsmith",
+            "wbrown",
+            "kthelen"
+        ],
+        "ongo": [
+            "ckelley",
+            "eanderson",
+            "jchunko",
+            "jmaul",
+            "jt",
+            "rsmith",
+            "wbrown"
+        ],
+        "shad": [
+            "eanderson",
+            "jmaul",
+            "rsmith",
+            "wbrown"
+        ]
+    },
+    "tue": {
+        "chat": [
+            "eanderson",
+            "jmaul",
+            "rsmith"
+        ],
+        "hand": [
+            "ckelley",
+            "eanderson",
+            "jchunko",
+            "jmaul",
+            "jt",
+            "rsmith"
+        ],
+        "new": [
+            "ckelley",
+            "eanderson",
+            "jchunko",
+            "jmaul",
+            "jt",
+            "rsmith",
+            "kthelen"
+        ],
+        "ongo": [
+            "ckelley",
+            "eanderson",
+            "jchunko",
+            "jmaul",
+            "jt",
+            "rsmith"
+        ],
+        "shad": [
+            "eanderson",
+            "jmaul",
+            "rsmith"
+        ]
+    },
+    "wed": {
+        "chat": [
+            "eanderson",
+            "jmaul",
+            "rsmith",
+            "wbrown"
+        ],
+        "hand": [
+            "ckelley",
+            "eanderson",
+            "jchunko",
+            "jmaul",
+            "jt",
+            "rsmith",
+            "wbrown"
+        ],
+        "new": [
+            "ckelley",
+            "eanderson",
+            "jchunko",
+            "jmaul",
+            "jt",
+            "rsmith",
+            "wbrown",
+            "kthelen"
+        ],
+        "ongo": [
+            "ckelley",
+            "eanderson",
+            "jchunko",
+            "jmaul",
+            "jt",
+            "rsmith",
+            "wbrown"
+        ],
+        "shad": [
+            "eanderson",
+            "jmaul",
+            "rsmith",
+            "wbrown"
+        ]
+    }
+}
